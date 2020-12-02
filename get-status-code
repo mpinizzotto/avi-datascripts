@@ -1,0 +1,10 @@
+#get http status code
+#responds with status based on match
+
+
+-- RESP EVENT
+status = avi.http.status()
+if status >="400" then
+  avi.http.response(status)
+  avi.vs.log("data script got status: " .. status)
+end
