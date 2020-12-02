@@ -1,0 +1,7 @@
+#get uri from request and insert into header
+
+-- HTTP REQ
+path = avi.http.get_path()
+If path then    
+    avi.http.add_header("X-Origurl", path).
+end
