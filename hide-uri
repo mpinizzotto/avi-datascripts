@@ -1,0 +1,6 @@
+#if path is /uri
+#respond with code
+
+if avi.http.uri == "/uri/" then
+   avi.http.send(403)
+end
