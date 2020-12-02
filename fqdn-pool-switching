@@ -1,0 +1,9 @@
+#makes pool decision based on FQDN 
+#matches on k/v in string group map
+
+
+-- HTTP REQ
+val, match = avi.stringgroup.beginswith("my_string_group", avi.http.get_host_tokens(1))
+if match then
+  avi.pool.select(val)
+end
