@@ -1,3 +1,4 @@
+#hide uri
 #if path is /uri
 #respond with code
 
