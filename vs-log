@@ -1,0 +1,4 @@
+#log ip and port
+ip = avi.vs.client_ip()
+port = avi.vs.client_port()
+avi.vs.log("This client at " .. ip .. ":" ..port ..  " is being logged via a datascript")
