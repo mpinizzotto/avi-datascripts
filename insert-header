@@ -1,7 +1,6 @@
-#get uri from request and insert into header
+#get client IP from request and insert into header
 
 -- HTTP REQ
-path = avi.http.get_path()
-If path then    
-    avi.http.add_header("X-Origurl", path).
+client_ip = avi.vs.client_ip()    
+avi.http.add_header("X-Real-IP", client_ip).
 end
