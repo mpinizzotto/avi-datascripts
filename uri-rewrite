@@ -4,9 +4,9 @@
 path = avi.http.get_path() 
 if string.contains(string.lower(path), ".acme.bookstore.mobile/") then
     path_token = avi.http.get_path_tokens()
-    foo = path_token(3)                          
-    bar = path_token(2) 
-    foobar = string.match(path_token(1),  “([^.]+)”)   
+    foo = path_token(3,3)                          
+    bar = path_token(2,2) 
+    foobar = string.match(path_token(1,1),  “([^.]+)”)   
     avi.http.set_uri(foo .. ".acme.bookstore.mobile/“ .. bar .. "?Site=" .. foobar)
 else
     avi.vs.log("this is my log..")
