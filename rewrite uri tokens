@@ -5,7 +5,7 @@ host = avi.http.get_header("Host")
 if string.beginswith(path, "/foo") then
     path_token = avi.http.get_path_tokens(2)
     avi.http.redirect("https://" .. host .. "/this/foo/" .. path_token)
-if string.beginswith(path, "/bar/foo") then
+elseif string.beginswith(path, "/bar/foo") then
     path_token = avi.http.get_path_tokens(3)
     avi.http.redirect("https://" .. host .. "/that/foo/" .. path_token)
     avi.vs.log(path)
