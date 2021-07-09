@@ -1,0 +1,4 @@
+servers_up, servers_total = avi.pool.get_servers("MY_Pool")
+if servers_up  < 1 then        
+    avi.http.redirect("http://sorry.mysite.com/")
+end
