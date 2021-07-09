@@ -1,0 +1,45 @@
+
+#Adds set-cookie header with samesite=None; secure setting when not present
+#ignores incompatible browsers
+#Map datascript to stringgroup of incompatible browser types
+#
+#example list of incompatible browsers in regex 
+#    *chrome/5[1-9].[0-9]*
+#    *chrome/6[0-6].[0-9]*
+#    *chromium/5[1-9].[0-9]*
+#    *chromium/6[0-6].[0-9]*
+#    *ip?*; cpu *os 12*applewebkit*
+#    *macintosh;*mac os x 10_14*version*safari*
+#    mozilla*macintosh;*mac os x 10_14*applewebkit*khtml, like gecko*
+#    *ucbrowser/[1-9].*
+#    *ucbrowser/1[0-1].*
+#    *ucbrowser/12.[0-9].*
+#    *ucbrowser/12.1[0-1].*
+#    *ucbrowser/12.12.*
+#    *ucbrowser/12.13.[0-2]*
+
+ua = string.lower(avi.http.get_header("user-agent", avi.HTTP_REQUEST))
+match = avi.stringgroup.equals("mybrowsers", ua)
+if not match then
+    headers = avi.http.get_header()
+    avi.http.remove_header("Set-Cookie")
+    for k, v in pairs(headers) do
+        if (k == "set-cookie") then
+            if (type(v) == "string") then
+                v = {v}
+            end
+            for key, val in pairs(v) do
+                new_val = val
+                if not string.contains(string.lower(val), "samesite") then
+                    new_val = val .."; samesite=None"
+                end
+                if not string.contains(string.lower(new_val), "secure") then
+                    new_val = new_val .."; secure"
+                end
+                avi.http.add_header("Set-Cookie", new_val)
+            end
+        end
+    end
+else
+    avi.vs.log("browser does not support samesite")
+end
