@@ -1,6 +1,6 @@
 #gets path and re-writes uri based on path segments 
 
--- REQ EVENT
+-- REQUEST EVENT
 path = avi.http.get_path() 
 if string.contains(string.lower(path), ".acme.bookstore.mobile/") then
     path_token = avi.http.get_path_tokens()
