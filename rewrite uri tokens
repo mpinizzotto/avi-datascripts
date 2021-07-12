@@ -1,6 +1,8 @@
 #subsitute specific path tokens for another
 #note that gsub requires escaping magic characters
 
+
+--REQUEST EVENT
 uri = avi.http.get_uri()
 host = avi.http.get_header("Host")
 if string.beginswith(uri, "/site") then
