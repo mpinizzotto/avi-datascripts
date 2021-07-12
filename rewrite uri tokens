@@ -1,13 +1,13 @@
-#rewrite and append specific uri token/s
+#subsitute specific path tokens for another
+#note that gsub requires escaping magic characters
 
-path = avi.http.get_path() 
+uri = avi.http.get_uri()
 host = avi.http.get_header("Host")
-if string.beginswith(path, "/foo") then
-    path_token = avi.http.get_path_tokens(2)
-    avi.http.redirect("https://" .. host .. "/this/foo/" .. path_token)
-elseif string.beginswith(path, "/bar/foo") then
-    path_token = avi.http.get_path_tokens(3)
-    avi.http.redirect("https://" .. host .. "/that/foo/" .. path_token)
-    avi.vs.log(path)
-end
+if string.beginswith(uri, "/site") then
+    new_uri = string.gsub(uri, '/site',  '/my/site')
+    avi.http.redirect("https://" .. host .. new_uri)
+elseif string.contains(uri, '/new-site/mypath.dll') then
+    new_uri = string.gsub(uri, '/new%-site/mypath%.dll', '/my/path')
+    avi.http.redirect("https://" .. host .. new_uri)
+else
 end
